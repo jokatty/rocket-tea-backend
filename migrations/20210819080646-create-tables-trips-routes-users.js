@@ -1,5 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    // ====================================================== USERS TABLE
     await queryInterface.createTable('users', {
       id: {
         allowNull: false,
@@ -25,6 +26,8 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    // ====================================================== STORES TABLE
     await queryInterface.createTable('stores', {
       id: {
         allowNull: false,
@@ -50,6 +53,8 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    // ====================================================== ITEMS TABLE
     await queryInterface.createTable('items', {
       id: {
         allowNull: false,
@@ -87,6 +92,7 @@ module.exports = {
       },
     });
 
+    // ====================================================== ORDERS TABLE
     await queryInterface.createTable('orders', {
       id: {
         allowNull: false,
@@ -123,6 +129,8 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    // ====================================================== ORDER_ITEMS TABLE
     await queryInterface.createTable('order_items', {
       id: {
         allowNull: false,

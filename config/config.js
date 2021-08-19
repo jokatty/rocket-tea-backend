@@ -1,6 +1,7 @@
 module.exports = {
   development: {
-    username: 'jyotikattani',
+    username: 'eddiejpot',
+    // username: 'jyotikattani',
     password: null,
     database: 'rocket_tea_development',
     host: '127.0.0.1',
