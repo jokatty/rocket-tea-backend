@@ -1,0 +1,60 @@
+import { Sequelize } from 'sequelize';
+import url from 'url';
+import allConfig from '../config/config.js';
+
+import itemModel from './item.mjs';
+import orderModel from './order.mjs';
+import orderItemModel from './orderItem.mjs';
+import userModel from './user.mjs';
+import storeModel from './store.mjs';
+
+const env = process.env.NODE_ENV || 'development';
+
+const config = allConfig[env];
+
+const db = {};
+
+let sequelize;
+
+if (env === 'production') {
+  // break apart the Heroku database url and rebuild the configs we need
+
+  const { DATABASE_URL } = process.env;
+  const dbUrl = url.parse(DATABASE_URL);
+  const username = dbUrl.auth.substr(0, dbUrl.auth.indexOf(':'));
+  const password = dbUrl.auth.substr(dbUrl.auth.indexOf(':') + 1, dbUrl.auth.length);
+  const dbName = dbUrl.path.slice(1);
+
+  const host = dbUrl.hostname;
+  const { port } = dbUrl;
+
+  config.host = host;
+  config.port = port;
+
+  sequelize = new Sequelize(dbName, username, password, config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
+}
+
+db.Item = itemModel(sequelize, Sequelize.DataTypes);
+db.Order = orderModel(sequelize, Sequelize.DataTypes);
+db.OrderItem = orderItemModel(sequelize, Sequelize.DataTypes);
+db.User = userModel(sequelize, Sequelize.DataTypes);
+db.Store = storeModel(sequelize, Sequelize.DataTypes);
+
+// users and orders One To Many
+db.Order.belongsToMany(db.User);
+db.User.hasMany(db.Order);
+// stores and orders One To Many
+db.Order.belongsToMany(db.Store);
+db.Store.hasMany(db.User);
+// oders and items relation using through table.
+db.OrderItem.belongsTo(db.Item);
+db.OrderItem.belongsTo(db.Order);
+db.Item.belongsToMany(db.Order, { through: 'order_items' });
+db.Order.belongsToMany(db.Item, { through: 'order_items' });
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+export default db;
