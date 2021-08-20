@@ -8,8 +8,8 @@ module.exports = {
       price: 4.50,
       image_id: '001',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'Kyoho Grape Oolong',
@@ -18,8 +18,8 @@ module.exports = {
       price: 4.00,
       image_id: '002',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'Golden Pomelo Oolong',
@@ -28,8 +28,8 @@ module.exports = {
       price: 5.00,
       image_id: '003',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     // ========================================= ESSENTIALS CATEGORY
     {
@@ -39,8 +39,8 @@ module.exports = {
       price: 4.00,
       image_id: '004',
       available_in_temp: 'hot',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'Oriental Green',
@@ -49,8 +49,8 @@ module.exports = {
       price: 4.00,
       image_id: '005',
       available_in_temp: 'hot',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'High Mountain Pouchong Tea',
@@ -59,8 +59,8 @@ module.exports = {
       price: 4.00,
       image_id: '006',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'Dong Ding Oolong Tea',
@@ -69,8 +69,8 @@ module.exports = {
       price: 4.50,
       image_id: '007',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'Vanilla Oolong',
@@ -79,8 +79,8 @@ module.exports = {
       price: 4.00,
       image_id: '008',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'Mint Oolong',
@@ -89,8 +89,8 @@ module.exports = {
       price: 4.00,
       image_id: '009',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     // ========================================= BOTTLED CATEGORY
     {
@@ -100,8 +100,8 @@ module.exports = {
       price: 6.00,
       image_id: '010',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
     {
       item_name: 'Dong Ding Oolong Tea',
@@ -110,8 +110,8 @@ module.exports = {
       price: 6.00,
       image_id: '011',
       available_in_temp: 'both',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   ], {}),
 

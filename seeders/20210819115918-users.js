@@ -4,8 +4,8 @@ module.exports = {
       user_name: 'guest',
       email: 'guest@gmail.com',
       password: '1234',
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   ], {}),
 
