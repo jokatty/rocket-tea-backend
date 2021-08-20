@@ -60,18 +60,6 @@ db.OrderItem.belongsTo(db.Item);
 db.Order.hasMany(db.OrderItem);
 db.OrderItem.belongsTo(db.Order);
 
-// // one store has many orders
-// db.Order.belongsToMany(db.User);
-// db.User.hasMany(db.Order);
-// // stores and orders One To Many
-// db.Order.belongsToMany(db.Store);
-// db.Store.hasMany(db.User);
-// // oders and items relation using through table.
-// db.OrderItem.belongsTo(db.Item);
-// db.OrderItem.belongsTo(db.Order);
-// db.Item.belongsToMany(db.Order, { through: 'order_items' });
-// db.Order.belongsToMany(db.Item, { through: 'order_items' });
-
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
