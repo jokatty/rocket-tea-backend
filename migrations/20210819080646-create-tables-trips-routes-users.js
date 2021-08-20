@@ -35,10 +35,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      store_name: {
+      login: {
         type: Sequelize.STRING,
       },
       password: {
+        type: Sequelize.STRING,
+      },
+      store_name: {
         type: Sequelize.STRING,
       },
       location: {
@@ -69,7 +72,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       item_category: {
-        // ideally we would like this datatype to be enum.ENUM(['popular', 'seasonal', 'bottled']),
+        // ideally we would like this datatype to be enum.ENUM(['popular', 'essentials', 'bottled']),
         // error faced: type:enum already exists
         type: Sequelize.STRING,
       },
@@ -154,6 +157,9 @@ module.exports = {
       },
       temp_choice: {
         type: Sequelize.STRING,
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
       },
       created_at: {
         allowNull: false,
