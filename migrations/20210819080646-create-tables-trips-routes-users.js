@@ -1,5 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    // ====================================================== USERS TABLE
     await queryInterface.createTable('users', {
       id: {
         allowNull: false,
@@ -25,6 +26,8 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    // ====================================================== STORES TABLE
     await queryInterface.createTable('stores', {
       id: {
         allowNull: false,
@@ -32,10 +35,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      store_name: {
+      login: {
         type: Sequelize.STRING,
       },
       password: {
+        type: Sequelize.STRING,
+      },
+      store_name: {
         type: Sequelize.STRING,
       },
       location: {
@@ -50,6 +56,8 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    // ====================================================== ITEMS TABLE
     await queryInterface.createTable('items', {
       id: {
         allowNull: false,
@@ -64,7 +72,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       item_category: {
-        // ideally we would like this datatype to be enum.ENUM(['popular', 'seasonal', 'bottled']),
+        // ideally we would like this datatype to be enum.ENUM(['popular', 'essentials', 'bottled']),
         // error faced: type:enum already exists
         type: Sequelize.STRING,
       },
@@ -87,6 +95,7 @@ module.exports = {
       },
     });
 
+    // ====================================================== ORDERS TABLE
     await queryInterface.createTable('orders', {
       id: {
         allowNull: false,
@@ -123,6 +132,8 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
+
+    // ====================================================== ORDER_ITEMS TABLE
     await queryInterface.createTable('order_items', {
       id: {
         allowNull: false,
@@ -146,6 +157,9 @@ module.exports = {
       },
       temp_choice: {
         type: Sequelize.STRING,
+      },
+      quantity: {
+        type: Sequelize.INTEGER,
       },
       created_at: {
         allowNull: false,

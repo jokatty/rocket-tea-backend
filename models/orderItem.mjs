@@ -6,9 +6,6 @@ export default function orderItemModel(sequelize, DataTypes) {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    quantity: {
-      type: DataTypes.INTEGER,
-    },
     orderId: {
       type: DataTypes.INTEGER,
       references: {
@@ -22,6 +19,12 @@ export default function orderItemModel(sequelize, DataTypes) {
         model: 'items',
         key: 'id',
       },
+    },
+    temp_choice: {
+      type: DataTypes.STRING,
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
     },
     createdAt: {
       allowNull: false,

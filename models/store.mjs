@@ -6,10 +6,13 @@ export default function storeModel(sequelize, DataTypes) {
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    storeName: {
+    login: {
       type: DataTypes.STRING,
     },
     password: {
+      type: DataTypes.STRING,
+    },
+    storeName: {
       type: DataTypes.STRING,
     },
     location: {

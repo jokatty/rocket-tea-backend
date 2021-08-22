@@ -42,17 +42,23 @@ db.OrderItem = orderItemModel(sequelize, Sequelize.DataTypes);
 db.User = userModel(sequelize, Sequelize.DataTypes);
 db.Store = storeModel(sequelize, Sequelize.DataTypes);
 
-// users and orders One To Many
-db.Order.belongsToMany(db.User);
+// --- M-to-M with through table
+db.Store.belongsToMany(db.User, { through: db.Order });
+db.User.belongsToMany(db.Store, { through: db.Order });
+// Define 1-M associations between orders table and associated tables
 db.User.hasMany(db.Order);
-// stores and orders One To Many
-db.Order.belongsToMany(db.Store);
-db.Store.hasMany(db.User);
-// oders and items relation using through table.
+db.Order.belongsTo(db.User);
+db.Store.hasMany(db.Order);
+db.Order.belongsTo(db.Store);
+
+// --- M-to-M with through table
+db.Item.belongsToMany(db.Order, { through: db.OrderItem });
+db.Order.belongsToMany(db.Item, { through: db.OrderItem });
+// Define 1-M associations between orders table and associated tables
+db.Item.hasMany(db.OrderItem);
 db.OrderItem.belongsTo(db.Item);
+db.Order.hasMany(db.OrderItem);
 db.OrderItem.belongsTo(db.Order);
-db.Item.belongsToMany(db.Order, { through: 'order_items' });
-db.Order.belongsToMany(db.Item, { through: 'order_items' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
