@@ -27,7 +27,7 @@ export default function routes(app) {
   });
 
   // --------- PLACING ORDERS
-  app.post('/orders', OrdersController.create);
+  app.post('/api/neworder', OrdersController.create);
   // app.get('/orders', OrdersController.index);
 
   app.get('/', (request, response) => {
