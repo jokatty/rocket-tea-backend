@@ -8,37 +8,86 @@ export default function initOrdersController(db) {
     }
   };
 
+  const test = async (request, response) => {
+    response.send('Yupp post works');
+  };
+
   const create = async (request, response) => {
+    // information that comes in the request is an object with 2 keys
+    // 1. orderTableData
+    // 2. orderItemsTableData
+
+    const exampleInfo = {
+    // orderTableData
+      orderTableData: {
+        userId: 1,
+        storeId: 2,
+        pickUpTime: 'test',
+        isComplete: false,
+      },
+
+      // orderItemsTableData
+      orderItemsTableData: [
+        {
+          itemId: 2,
+          sizeChoice: 'regular',
+          tempChoice: 'hot',
+          quantity: 2,
+        },
+        {
+          itemId: 4,
+          sizeChoice: 'large',
+          tempChoice: 'cold',
+          quantity: 1,
+        },
+      ],
+    };
+
+    const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = exampleInfo;
+
+    // destructure info needed to create order
+    const { userId, storeId, pickUpTime } = mainOrder;
+
     try {
-      const order = await db.Order.create({
-        total: request.body.total,
-      });
+      // Create an order
+      const newOrderInOrdersTable = await db.Order.create({
+        userId,
+        storeId,
+        pickUpTime,
+        isComplete: false,
+      },
+      { returning: true });
 
-      const { items } = request.body;
+      // order.addOrderItem
+      console.log('NEW ROW IN ORDERS TABLE ================>');
+      console.log(newOrderInOrdersTable);
 
-      const orderItemQueries = [];
-      for (let i = 0; i < items.length; i += 1) {
-        const item = {
-          order_id: order.id,
-          item_id: items[i].id,
-          quantity: items[i].quantity,
-          created_at: new Date(),
-          updated_at: new Date(),
-        };
-
-        orderItemQueries.push(db.OrderItem.create(item));
+      // insert orderId into allDrinkOrders
+      for (let i = 0; i < allDrinkOrders.length; i += 1) {
+        allDrinkOrders[i].orderId = newOrderInOrdersTable.id;
       }
 
-      const orderItemResults = await Promise.all(orderItemQueries);
+      console.log('updated drinkOrders');
+      console.log(allDrinkOrders);
 
-      response.send({ orderItems: orderItemResults, order });
-    } catch (error) {
+      const newOrdersInOrderItemsTable = await db.OrderItem.bulkCreate(allDrinkOrders, { returning: true });
+
+      console.log('NEW ROW IN ORDER_ITEMS TABLE ================>');
+      console.log(newOrdersInOrderItemsTable);
+
+      response.end();
+      console.log('close connection');
+    }
+    catch (error) {
+      console.log('ERROR ==================== !');
       console.log(error);
+      response.end();
     }
   };
 
   return {
     create,
     index,
+    test,
   };
 }
