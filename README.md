@@ -31,3 +31,38 @@ Start Server:
 **Get item image by imageid**
 \*Image id is from 001 to 011
 `/api/items/image/:id`
+
+**Post new order / confirm order**
+`/api/neworder`
+
+```
+// data that is sent is an object with 2 keys
+// 1. orderTableData
+// 2. orderItemsTableData
+
+const exampleDataSent = {
+
+  orderTableData: {
+    userId: 1,
+    storeId: 2,
+    pickUpTime: 'test',
+    isComplete: false,
+  },
+
+  orderItemsTableData: [
+    {
+    itemId: 2,
+    sizeChoice: 'regular',
+    tempChoice: 'hot',
+    quantity: 2,
+    },
+    {
+      itemId: 4,
+      sizeChoice: 'large',
+      tempChoice: 'cold',
+      quantity: 1,
+    },
+  ],
+};
+
+```
