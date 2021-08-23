@@ -8,43 +8,38 @@ export default function initOrdersController(db) {
     }
   };
 
-  const test = async (request, response) => {
-    response.send('Yupp post works');
-  };
-
   const create = async (request, response) => {
     // information that comes in the request is an object with 2 keys
     // 1. orderTableData
     // 2. orderItemsTableData
 
-    // const exampleInfo = {
-    // // orderTableData
-    //   orderTableData: {
-    //     userId: 1,
-    //     storeId: 2,
-    //     pickUpTime: 'test',
-    //     isComplete: false,
-    //   },
-
-    //   // orderItemsTableData
-    //   orderItemsTableData: [
-    //     {
-    //       itemId: 2,
-    //       sizeChoice: 'regular',
-    //       tempChoice: 'hot',
-    //       quantity: 2,
-    //     },
-    //     {
-    //       itemId: 4,
-    //       sizeChoice: 'large',
-    //       tempChoice: 'cold',
-    //       quantity: 1,
-    //     },
-    //   ],
-    // };
-
-    // const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = exampleInfo;
     const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = request.body;
+
+    // Test data
+    const TEST_CASE = false;
+    if (TEST_CASE) {
+      mainOrder = {
+        userId: 1,
+        storeId: 1,
+        pickUpTime: 'test',
+        isComplete: false,
+      };
+
+      allDrinkOrders = [
+        {
+          itemId: 4,
+          sizeChoice: 'regular',
+          tempChoice: 'hot',
+          quantity: 2,
+        },
+        {
+          itemId: 5,
+          sizeChoice: 'large',
+          tempChoice: 'cold',
+          quantity: 1,
+        },
+      ];
+    }
 
     // destructure info needed to create order
     const { userId, storeId, pickUpTime } = mainOrder;
@@ -59,24 +54,30 @@ export default function initOrdersController(db) {
       },
       { returning: true });
 
-      // order.addOrderItem
       console.log('NEW ROW IN ORDERS TABLE ================>');
       console.log(newOrderInOrdersTable);
 
+      const handeleAllDrinkOrders = await Promise.all(
+        allDrinkOrders.map((drink) => db.OrderItem.create(drink), { returning: true }),
+      );
+
+      const newOrdersInOrderItemsTable = await newOrderInOrdersTable
+        .addOrder_items(handeleAllDrinkOrders, { returning: true });
+
+      // Older code here that creates an order
       // insert orderId into allDrinkOrders
-      for (let i = 0; i < allDrinkOrders.length; i += 1) {
-        allDrinkOrders[i].orderId = newOrderInOrdersTable.id;
-      }
+      // for (let i = 0; i < allDrinkOrders.length; i += 1) {
+      //   allDrinkOrders[i].orderId = newOrderInOrdersTable.id;
+      // }
 
-      console.log('updated drinkOrders');
-      console.log(allDrinkOrders);
-
-      const newOrdersInOrderItemsTable = await db.OrderItem.bulkCreate(allDrinkOrders, { returning: true });
+      // const newOrdersInOrderItemsTable = await db
+      //  .OrderItem.bulkCreate(allDrinkOrders, { returning: true });
 
       console.log('NEW ROW IN ORDER_ITEMS TABLE ================>');
       console.log(newOrdersInOrderItemsTable);
 
-      response.end();
+      // send back order id data
+      response.send(newOrderInOrdersTable);
       console.log('close connection');
     }
     catch (error) {
@@ -89,6 +90,5 @@ export default function initOrdersController(db) {
   return {
     create,
     index,
-    test,
   };
 }
