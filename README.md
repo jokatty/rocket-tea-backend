@@ -51,10 +51,10 @@ const exampleDataSent = {
 
   orderItemsTableData: [
     {
-    itemId: 2,
-    sizeChoice: 'regular',
-    tempChoice: 'hot',
-    quantity: 2,
+      itemId: 2,
+      sizeChoice: 'regular',
+      tempChoice: 'hot',
+      quantity: 2,
     },
     {
       itemId: 4,
