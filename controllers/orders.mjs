@@ -17,33 +17,34 @@ export default function initOrdersController(db) {
     // 1. orderTableData
     // 2. orderItemsTableData
 
-    const exampleInfo = {
-    // orderTableData
-      orderTableData: {
-        userId: 1,
-        storeId: 2,
-        pickUpTime: 'test',
-        isComplete: false,
-      },
+    // const exampleInfo = {
+    // // orderTableData
+    //   orderTableData: {
+    //     userId: 1,
+    //     storeId: 2,
+    //     pickUpTime: 'test',
+    //     isComplete: false,
+    //   },
 
-      // orderItemsTableData
-      orderItemsTableData: [
-        {
-          itemId: 2,
-          sizeChoice: 'regular',
-          tempChoice: 'hot',
-          quantity: 2,
-        },
-        {
-          itemId: 4,
-          sizeChoice: 'large',
-          tempChoice: 'cold',
-          quantity: 1,
-        },
-      ],
-    };
+    //   // orderItemsTableData
+    //   orderItemsTableData: [
+    //     {
+    //       itemId: 2,
+    //       sizeChoice: 'regular',
+    //       tempChoice: 'hot',
+    //       quantity: 2,
+    //     },
+    //     {
+    //       itemId: 4,
+    //       sizeChoice: 'large',
+    //       tempChoice: 'cold',
+    //       quantity: 1,
+    //     },
+    //   ],
+    // };
 
-    const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = exampleInfo;
+    // const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = exampleInfo;
+    const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = request.body;
 
     // destructure info needed to create order
     const { userId, storeId, pickUpTime } = mainOrder;
