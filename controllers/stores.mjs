@@ -1,4 +1,4 @@
-export default function initOrdersController(db) {
+export default function initStoresController(db) {
   const index = async (request, response) => {
     try {
       const stores = await db.Store.findAll();
