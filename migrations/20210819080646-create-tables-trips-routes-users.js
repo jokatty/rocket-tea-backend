@@ -120,8 +120,10 @@ module.exports = {
       pick_up_time: {
         type: Sequelize.STRING,
       },
-      is_complete: {
-        type: Sequelize.BOOLEAN,
+      // ideally we would like this datatype to be enum.ENUM(['sent', 'accepted', 'complete']),
+      // error faced: type:enum already exists
+      order_status: {
+        type: Sequelize.STRING,
       },
       created_at: {
         allowNull: false,
