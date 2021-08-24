@@ -15,31 +15,10 @@ export default function initOrdersController(db) {
 
     const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = request.body;
 
-    // Test data
-    const TEST_CASE = false;
-    if (TEST_CASE) {
-      mainOrder = {
-        userId: 1,
-        storeId: 1,
-        pickUpTime: 'test',
-        isComplete: false,
-      };
-
-      allDrinkOrders = [
-        {
-          itemId: 4,
-          sizeChoice: 'regular',
-          tempChoice: 'hot',
-          quantity: 2,
-        },
-        {
-          itemId: 5,
-          sizeChoice: 'large',
-          tempChoice: 'cold',
-          quantity: 1,
-        },
-      ];
-    }
+    // console.log('MAIN ORDER');
+    // console.log(mainOrder);
+    // console.log('ALL DRINKS');
+    // console.log(allDrinkOrders);
 
     // destructure info needed to create order
     const { userId, storeId, pickUpTime } = mainOrder;
@@ -63,15 +42,6 @@ export default function initOrdersController(db) {
 
       const newOrdersInOrderItemsTable = await newOrderInOrdersTable
         .addOrder_items(handeleAllDrinkOrders, { returning: true });
-
-      // Older code here that creates an order
-      // insert orderId into allDrinkOrders
-      // for (let i = 0; i < allDrinkOrders.length; i += 1) {
-      //   allDrinkOrders[i].orderId = newOrderInOrdersTable.id;
-      // }
-
-      // const newOrdersInOrderItemsTable = await db
-      //  .OrderItem.bulkCreate(allDrinkOrders, { returning: true });
 
       console.log('NEW ROW IN ORDER_ITEMS TABLE ================>');
       console.log(newOrdersInOrderItemsTable);
