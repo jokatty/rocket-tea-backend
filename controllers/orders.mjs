@@ -15,13 +15,10 @@ export default function initOrdersController(db) {
 
     const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = request.body;
 
-    // console.log('MAIN ORDER');
-    // console.log(mainOrder);
-    // console.log('ALL DRINKS');
-    // console.log(allDrinkOrders);
-
     // destructure info needed to create order
-    const { userId, storeId, pickUpTime } = mainOrder;
+    const {
+      userId, storeId, pickUpTime, orderStatus, totalAmount,
+    } = mainOrder;
 
     try {
       // Create an order
@@ -29,7 +26,8 @@ export default function initOrdersController(db) {
         userId,
         storeId,
         pickUpTime,
-        isComplete: false,
+        orderStatus,
+        totalAmount,
       },
       { returning: true });
 
