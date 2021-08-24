@@ -25,8 +25,11 @@ export default function orderModel(sequelize, DataTypes) {
     },
     // ideally we would like this datatype to be enum.ENUM(['sent', 'accepted', 'complete']),
     // error faced: type:enum already exists
-    order_status: {
+    orderStatus: {
       type: DataTypes.STRING,
+    },
+    totalAmount: {
+      type: DataTypes.DECIMAL,
     },
     createdAt: {
       allowNull: false,

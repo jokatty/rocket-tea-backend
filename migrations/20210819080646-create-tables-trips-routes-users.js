@@ -77,7 +77,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL,
       },
       image_id: {
         type: Sequelize.STRING,
@@ -125,6 +125,9 @@ module.exports = {
       order_status: {
         type: Sequelize.STRING,
       },
+      total_amount: {
+        type: Sequelize.DECIMAL,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -165,6 +168,9 @@ module.exports = {
       },
       quantity: {
         type: Sequelize.INTEGER,
+      },
+      item_total: {
+        type: Sequelize.DECIMAL,
       },
       created_at: {
         allowNull: false,
