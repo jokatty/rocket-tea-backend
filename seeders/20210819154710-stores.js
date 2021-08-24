@@ -124,9 +124,9 @@ module.exports = {
 
   down: async (queryInterface) => {
     console.log('settling stores seed drop ================================>');
-    // DROP TABLES HERE
-    await queryInterface.dropTable('order_items');
-    await queryInterface.dropTable('orders');
+    // // DROP TABLES HERE
+    // await queryInterface.dropTable('order_items');
+    // await queryInterface.dropTable('orders');
     await queryInterface.bulkDelete('items', null, {});
   },
 };
