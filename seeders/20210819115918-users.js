@@ -10,6 +10,8 @@ module.exports = {
   ], {}),
 
   down: async (queryInterface) => {
+    console.log('settling users seed drop ================================>');
+    // delete seed data
     await queryInterface.bulkDelete('users', null, {});
   },
 };

@@ -1,5 +1,5 @@
 export default function userModel(sequelize, DataTypes) {
-  return sequelize.define('item', {
+  return sequelize.define('user', {
     id: {
       allowNull: false,
       autoIncrement: true,

@@ -1,5 +1,5 @@
 export default function orderItemModel(sequelize, DataTypes) {
-  return sequelize.define('order_items', {
+  return sequelize.define('order_item', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -20,7 +20,10 @@ export default function orderItemModel(sequelize, DataTypes) {
         key: 'id',
       },
     },
-    temp_choice: {
+    sizeChoice: {
+      type: DataTypes.STRING,
+    },
+    tempChoice: {
       type: DataTypes.STRING,
     },
     quantity: {

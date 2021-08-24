@@ -155,6 +155,9 @@ module.exports = {
           key: 'id',
         },
       },
+      size_choice: {
+        type: Sequelize.STRING,
+      },
       temp_choice: {
         type: Sequelize.STRING,
       },

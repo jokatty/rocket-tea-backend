@@ -9,31 +9,51 @@ export default function initOrdersController(db) {
   };
 
   const create = async (request, response) => {
+    // information that comes in the request is an object with 2 keys
+    // 1. orderTableData
+    // 2. orderItemsTableData
+
+    const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = request.body;
+
+    // console.log('MAIN ORDER');
+    // console.log(mainOrder);
+    // console.log('ALL DRINKS');
+    // console.log(allDrinkOrders);
+
+    // destructure info needed to create order
+    const { userId, storeId, pickUpTime } = mainOrder;
+
     try {
-      const order = await db.Order.create({
-        total: request.body.total,
-      });
+      // Create an order
+      const newOrderInOrdersTable = await db.Order.create({
+        userId,
+        storeId,
+        pickUpTime,
+        isComplete: false,
+      },
+      { returning: true });
 
-      const { items } = request.body;
+      console.log('NEW ROW IN ORDERS TABLE ================>');
+      console.log(newOrderInOrdersTable);
 
-      const orderItemQueries = [];
-      for (let i = 0; i < items.length; i += 1) {
-        const item = {
-          order_id: order.id,
-          item_id: items[i].id,
-          quantity: items[i].quantity,
-          created_at: new Date(),
-          updated_at: new Date(),
-        };
+      const handeleAllDrinkOrders = await Promise.all(
+        allDrinkOrders.map((drink) => db.OrderItem.create(drink), { returning: true }),
+      );
 
-        orderItemQueries.push(db.OrderItem.create(item));
-      }
+      const newOrdersInOrderItemsTable = await newOrderInOrdersTable
+        .addOrder_items(handeleAllDrinkOrders, { returning: true });
 
-      const orderItemResults = await Promise.all(orderItemQueries);
+      console.log('NEW ROW IN ORDER_ITEMS TABLE ================>');
+      console.log(newOrdersInOrderItemsTable);
 
-      response.send({ orderItems: orderItemResults, order });
-    } catch (error) {
+      // send back order id data
+      response.send(newOrderInOrdersTable);
+      console.log('close connection');
+    }
+    catch (error) {
+      console.log('ERROR ==================== !');
       console.log(error);
+      response.end();
     }
   };
 

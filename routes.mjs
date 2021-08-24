@@ -3,13 +3,17 @@ import db from './models/index.mjs';
 
 import initItemsController from './controllers/items.mjs';
 import initOrdersController from './controllers/orders.mjs';
+import initStoresController from './controllers/stores.mjs';
 
 export default function routes(app) {
   const ItemsController = initItemsController(db);
   const OrdersController = initOrdersController(db);
+  const StoresController = initStoresController(db);
 
-  app.post('/orders', OrdersController.create);
-  app.get('/orders', OrdersController.index);
+  // --------- MENU ITEMS
+
+  // get all menu items
+  app.get('/api/stores', StoresController.index);
 
   // get all menu items
   app.get('/api/items', ItemsController.index);
@@ -21,6 +25,10 @@ export default function routes(app) {
     const { id } = request.params;
     response.sendFile(resolve('public', `products/${id}.jpg`));
   });
+
+  // --------- PLACING ORDERS
+  app.post('/api/neworder', OrdersController.create);
+  // app.get('/orders', OrdersController.index);
 
   app.get('/', (request, response) => {
     response.send('Rocket Tea API');
