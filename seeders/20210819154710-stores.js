@@ -123,7 +123,7 @@ module.exports = {
   ], {}),
 
   down: async (queryInterface) => {
-    console.log('settling stores seed drop ================================>');
+    console.log('deleting seed data from stores ==============>');
     await queryInterface.bulkDelete('items', null, {});
   },
 };

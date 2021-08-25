@@ -50,6 +50,7 @@ module.exports = {
   ], {}),
 
   down: async (queryInterface) => {
+    console.log('deleting seed data from orders ==============>');
     await queryInterface.bulkDelete('orders', null, {});
   },
 };
