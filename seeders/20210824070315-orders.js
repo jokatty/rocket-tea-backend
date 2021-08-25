@@ -12,7 +12,7 @@ module.exports = {
     },
     {
       user_id: 1,
-      store_id: 4,
+      store_id: 2,
       pick_up_time: '11:30',
       order_status: 'accepted',
       total_amount: 8,
