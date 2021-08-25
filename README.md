@@ -32,6 +32,12 @@ Start Server:
 \*Image id is from 001 to 011
 `/api/items/image/:id`
 
+**Get user's on-going orders by userid**
+`/api/orders/:userid`
+
+**Get user's completed orders by userid**
+`/api/orderhistory/:userid`
+
 **Post new order / confirm order**
 `/api/neworder`
 
@@ -44,23 +50,26 @@ const exampleDataSent = {
 
   orderTableData: {
     userId: 1,
-    storeId: 2,
+    storeId: 1,
     pickUpTime: 'test',
-    isComplete: false,
+    orderStatus: 'sent',
+    totalAmount: 13
   },
-
+​
   orderItemsTableData: [
     {
-      itemId: 2,
+      itemId: 1,
       sizeChoice: 'regular',
       tempChoice: 'hot',
       quantity: 2,
+      itemTotal: 8
     },
     {
-      itemId: 4,
+      itemId: 2,
       sizeChoice: 'large',
       tempChoice: 'cold',
       quantity: 1,
+      itemTotal: 5
     },
   ],
 };
