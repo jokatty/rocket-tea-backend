@@ -14,19 +14,22 @@ export default function routes(app) {
 
   // get all menu items
   app.get('/api/stores', StoresController.index);
-
   // get all menu items
   app.get('/api/items', ItemsController.index);
   // get menu item by id
   app.get('/api/item/:id', ItemsController.find);
-
   // get item image by id
   app.get('/api/items/image/:id', (request, response) => {
     const { id } = request.params;
     response.sendFile(resolve('public', `products/${id}.jpg`));
   });
 
-  // --------- PLACING ORDERS
+  // --------- USER ORDERS
+  // get on-going orders by userid
+  app.get('/api/orders/:id', OrdersController.findUserOrders);
+  // get order history by userid
+  app.get('/api/orderhistory/:id', OrdersController.findUserOrderHistory);
+  // place an order
   app.post('/api/neworder', OrdersController.create);
   // app.get('/orders', OrdersController.index);
 
