@@ -18,7 +18,7 @@ export default function itemModel(sequelize, DataTypes) {
       type: DataTypes.STRING,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.DECIMAL,
     },
     imageId: {
       type: DataTypes.STRING,

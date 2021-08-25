@@ -29,6 +29,9 @@ export default function orderItemModel(sequelize, DataTypes) {
     quantity: {
       type: DataTypes.INTEGER,
     },
+    itemTotal: {
+      type: DataTypes.DECIMAL,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,

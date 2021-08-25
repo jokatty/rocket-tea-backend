@@ -23,8 +23,13 @@ export default function orderModel(sequelize, DataTypes) {
     pickUpTime: {
       type: DataTypes.STRING,
     },
-    isComplete: {
-      type: DataTypes.BOOLEAN,
+    // ideally we would like this datatype to be enum.ENUM(['sent', 'accepted', 'complete']),
+    // error faced: type:enum already exists
+    orderStatus: {
+      type: DataTypes.STRING,
+    },
+    totalAmount: {
+      type: DataTypes.DECIMAL,
     },
     createdAt: {
       allowNull: false,

@@ -1,3 +1,7 @@
+import Sequelize from 'sequelize';
+
+const op = Sequelize.Op;
+
 export default function initOrdersController(db) {
   const index = async (request, response) => {
     try {
@@ -8,6 +12,96 @@ export default function initOrdersController(db) {
     }
   };
 
+  const findUserOrders = async (request, response) => {
+    const { id } = request.params;
+
+    try {
+      // get all of user's order from order table
+      const userOrders = await db.Order.findAll({
+        where: {
+          userId: id,
+          orderStatus: {
+            [op.not]: 'complete',
+          },
+        },
+        raw: true,
+      });
+
+      // get item orders
+      const itemsPerOrderArray = [];
+      await Promise.all(
+        userOrders.map((order) => {
+          const itemsPerOrder = db.OrderItem.findAll({
+            where: {
+              orderId: order.id,
+            },
+            raw: true,
+          });
+          itemsPerOrderArray.push(itemsPerOrder);
+        }),
+      );
+
+      const listOfItemsPerOrder = await Promise.all(itemsPerOrderArray).then((result) => result);
+
+      // massage data
+      const dataToSendBack = {};
+      for (let i = 0; i < userOrders.length; i += 1) {
+        dataToSendBack[`order${userOrders[i].id}`] = {
+          orderTableData: userOrders[i],
+          orderItemsTableData: listOfItemsPerOrder[i],
+        };
+      }
+      // send back
+      response.send(dataToSendBack);
+    } catch (error) {
+      console.log('ERROR IN findUserOrders', error);
+    }
+  };
+
+  const findUserOrderHistory = async (request, response) => {
+    const { id } = request.params;
+
+    try {
+      // get all of user's order from order table
+      const userOrders = await db.Order.findAll({
+        where: {
+          userId: id,
+          orderStatus: 'complete',
+        },
+        raw: true,
+      });
+
+      // get item orders
+      const itemsPerOrderArray = [];
+      await Promise.all(
+        userOrders.map((order) => {
+          const itemsPerOrder = db.OrderItem.findAll({
+            where: {
+              orderId: order.id,
+            },
+            raw: true,
+          });
+          itemsPerOrderArray.push(itemsPerOrder);
+        }),
+      );
+
+      const listOfItemsPerOrder = await Promise.all(itemsPerOrderArray).then((result) => result);
+
+      // massage data
+      const dataToSendBack = {};
+      for (let i = 0; i < userOrders.length; i += 1) {
+        dataToSendBack[`order${userOrders[i].id}`] = {
+          orderTableData: userOrders[i],
+          orderItemsTableData: listOfItemsPerOrder[i],
+        };
+      }
+      // send back
+      response.send(dataToSendBack);
+    } catch (error) {
+      console.log('ERROR IN findUserOrders', error);
+    }
+  };
+
   const create = async (request, response) => {
     // information that comes in the request is an object with 2 keys
     // 1. orderTableData
@@ -15,13 +109,10 @@ export default function initOrdersController(db) {
 
     const { orderTableData: mainOrder, orderItemsTableData: allDrinkOrders } = request.body;
 
-    // console.log('MAIN ORDER');
-    // console.log(mainOrder);
-    // console.log('ALL DRINKS');
-    // console.log(allDrinkOrders);
-
     // destructure info needed to create order
-    const { userId, storeId, pickUpTime } = mainOrder;
+    const {
+      userId, storeId, pickUpTime, orderStatus, totalAmount,
+    } = mainOrder;
 
     try {
       // Create an order
@@ -29,7 +120,8 @@ export default function initOrdersController(db) {
         userId,
         storeId,
         pickUpTime,
-        isComplete: false,
+        orderStatus,
+        totalAmount,
       },
       { returning: true });
 
@@ -60,5 +152,7 @@ export default function initOrdersController(db) {
   return {
     create,
     index,
+    findUserOrders,
+    findUserOrderHistory,
   };
 }

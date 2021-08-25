@@ -77,7 +77,7 @@ module.exports = {
         type: Sequelize.STRING,
       },
       price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.DECIMAL,
       },
       image_id: {
         type: Sequelize.STRING,
@@ -120,8 +120,13 @@ module.exports = {
       pick_up_time: {
         type: Sequelize.STRING,
       },
-      is_complete: {
-        type: Sequelize.BOOLEAN,
+      // ideally we would like this datatype to be enum.ENUM(['sent', 'accepted', 'complete']),
+      // error faced: type:enum already exists
+      order_status: {
+        type: Sequelize.STRING,
+      },
+      total_amount: {
+        type: Sequelize.DECIMAL,
       },
       created_at: {
         allowNull: false,
@@ -163,6 +168,9 @@ module.exports = {
       },
       quantity: {
         type: Sequelize.INTEGER,
+      },
+      item_total: {
+        type: Sequelize.DECIMAL,
       },
       created_at: {
         allowNull: false,
