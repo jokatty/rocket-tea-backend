@@ -44,12 +44,13 @@ export default function initOrdersController(db) {
       const listOfItemsPerOrder = await Promise.all(itemsPerOrderArray).then((result) => result);
 
       // massage data
-      const dataToSendBack = {};
+      const dataToSendBack = [];
       for (let i = 0; i < userOrders.length; i += 1) {
-        dataToSendBack[`order${userOrders[i].id}`] = {
+        const dataObj = {
           orderTableData: userOrders[i],
           orderItemsTableData: listOfItemsPerOrder[i],
         };
+        dataToSendBack.push(dataObj);
       }
       // send back
       response.send(dataToSendBack);
@@ -88,12 +89,13 @@ export default function initOrdersController(db) {
       const listOfItemsPerOrder = await Promise.all(itemsPerOrderArray).then((result) => result);
 
       // massage data
-      const dataToSendBack = {};
+      const dataToSendBack = [];
       for (let i = 0; i < userOrders.length; i += 1) {
-        dataToSendBack[`order${userOrders[i].id}`] = {
+        const dataObj = {
           orderTableData: userOrders[i],
           orderItemsTableData: listOfItemsPerOrder[i],
         };
+        dataToSendBack.push(dataObj);
       }
       // send back
       response.send(dataToSendBack);
