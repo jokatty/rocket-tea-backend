@@ -4,6 +4,7 @@
 module.exports = {
   up: async (queryInterface) => queryInterface.bulkInsert('orders', [
     // =========================================== ON-GOING ORDERS
+    // =============== Order 1
     {
       user_id: 1,
       store_id: 2,
@@ -14,6 +15,7 @@ module.exports = {
       created_at: new Date(),
       updated_at: new Date(),
     },
+    // =============== Order 2
     {
       user_id: 1,
       store_id: 2,
@@ -24,7 +26,31 @@ module.exports = {
       created_at: new Date(),
       updated_at: new Date(),
     },
+    // =============== Order 3
+    {
+      user_id: 1,
+      store_id: 1,
+      pick_up_time: '14:00',
+      order_status: 'sent',
+      total_amount: 8,
+      receipt_num: Math.floor(100000 + Math.random() * 900000),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    // =============== Order 4
+    {
+      user_id: 1,
+      store_id: 1,
+      pick_up_time: '11:30',
+      order_status: 'sent',
+      total_amount: 8,
+      receipt_num: Math.floor(100000 + Math.random() * 900000),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+
     // ============================================= PAST ORDERS
+    // =============== Order 5
     {
       user_id: 1,
       store_id: 4,
@@ -35,6 +61,7 @@ module.exports = {
       created_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 4),
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 4),
     },
+    // =============== Order 6
     {
       user_id: 1,
       store_id: 4,
@@ -45,6 +72,7 @@ module.exports = {
       created_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 6),
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 6),
     },
+    // =============== Order 7
     {
       user_id: 1,
       store_id: 3,

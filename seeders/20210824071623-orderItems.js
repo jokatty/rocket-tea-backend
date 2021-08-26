@@ -45,10 +45,44 @@ module.exports = {
       updated_at: new Date(),
     },
 
-    // ============================================= PAST ORDERS
     // =============== Order 3
     {
       order_id: 3,
+      item_id: 2,
+      size_choice: 'regular',
+      temp_choice: 'hot',
+      quantity: 2,
+      item_total: 8,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+
+    // =============== Order 4
+    {
+      order_id: 4,
+      item_id: 2,
+      size_choice: 'regular',
+      temp_choice: 'hot',
+      quantity: 1,
+      item_total: 4,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      order_id: 4,
+      item_id: 4,
+      size_choice: 'regular',
+      temp_choice: 'cold',
+      quantity: 1,
+      item_total: 4,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+
+    // ============================================= PAST ORDERS
+    // =============== Order 5
+    {
+      order_id: 5,
       item_id: 1,
       size_choice: 'regular',
       temp_choice: 'hot',
@@ -58,7 +92,7 @@ module.exports = {
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 4),
     },
     {
-      order_id: 3,
+      order_id: 5,
       item_id: 2,
       size_choice: 'regular',
       temp_choice: 'cold',
@@ -68,9 +102,9 @@ module.exports = {
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 4),
     },
 
-    // =============== Order 4
+    // =============== Order 6
     {
-      order_id: 4,
+      order_id: 6,
       item_id: 3,
       size_choice: 'regular',
       temp_choice: 'hot',
@@ -80,7 +114,7 @@ module.exports = {
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 6),
     },
     {
-      order_id: 4,
+      order_id: 6,
       item_id: 3,
       size_choice: 'regular',
       temp_choice: 'cold',
@@ -90,9 +124,9 @@ module.exports = {
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 6),
     },
 
-    // =============== Order 5
+    // =============== Order 7
     {
-      order_id: 5,
+      order_id: 7,
       item_id: 11,
       size_choice: 'regular',
       temp_choice: 'cold',
@@ -102,7 +136,7 @@ module.exports = {
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 7),
     },
     {
-      order_id: 5,
+      order_id: 7,
       item_id: 10,
       size_choice: 'regular',
       temp_choice: 'cold',
