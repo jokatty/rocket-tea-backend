@@ -1,7 +1,6 @@
-const short = require('short-uuid');
+// const short = require('short-uuid');
 
-const translator = short();
-
+// const translator = short();
 module.exports = {
   up: async (queryInterface) => queryInterface.bulkInsert('orders', [
     // =========================================== ON-GOING ORDERS
@@ -11,7 +10,7 @@ module.exports = {
       pick_up_time: '14:00',
       order_status: 'sent',
       total_amount: 12,
-      receipt_num: translator.new().slice(0, 8),
+      receipt_num: Math.floor(100000 + Math.random() * 900000),
       created_at: new Date(),
       updated_at: new Date(),
     },
@@ -21,7 +20,7 @@ module.exports = {
       pick_up_time: '11:30',
       order_status: 'accepted',
       total_amount: 8,
-      receipt_num: translator.new().slice(0, 8),
+      receipt_num: Math.floor(100000 + Math.random() * 900000),
       created_at: new Date(),
       updated_at: new Date(),
     },
@@ -32,7 +31,7 @@ module.exports = {
       pick_up_time: '10:30',
       order_status: 'complete',
       total_amount: 8.5,
-      receipt_num: translator.new().slice(0, 8),
+      receipt_num: Math.floor(100000 + Math.random() * 900000),
       created_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 4),
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 4),
     },
@@ -42,7 +41,7 @@ module.exports = {
       pick_up_time: '12:30',
       order_status: 'complete',
       total_amount: 8,
-      receipt_num: translator.new().slice(0, 8),
+      receipt_num: Math.floor(100000 + Math.random() * 900000),
       created_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 6),
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 6),
     },
@@ -52,7 +51,7 @@ module.exports = {
       pick_up_time: '12:30',
       order_status: 'complete',
       total_amount: 12,
-      receipt_num: translator.new().slice(0, 8),
+      receipt_num: Math.floor(100000 + Math.random() * 900000),
       created_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 7),
       updated_at: new Date(Date.now() - ((3600 * 1000 * 24)) * 7),
     },
