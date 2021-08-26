@@ -128,6 +128,9 @@ module.exports = {
       total_amount: {
         type: Sequelize.DECIMAL,
       },
+      receipt_num: {
+        type: Sequelize.STRING,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE,
