@@ -31,6 +31,9 @@ export default function orderModel(sequelize, DataTypes) {
     totalAmount: {
       type: DataTypes.DECIMAL,
     },
+    receiptNum: {
+      type: DataTypes.STRING,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,

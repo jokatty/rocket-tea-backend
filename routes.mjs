@@ -33,6 +33,19 @@ export default function routes(app) {
   app.post('/api/neworder', OrdersController.create);
   // app.get('/orders', OrdersController.index);
 
+  // --------- STORE
+  // login
+  app.post('/api/store/login', StoresController.storeLogin);
+
+  // get orders
+  app.get('/api/store/orders/:id', StoresController.getOrders);
+
+  // accept order
+  app.put('/api/store/acceptorder/:id', StoresController.acceptOrder);
+  // complete order
+  app.put('/api/store/completeorder/:id', StoresController.completeOrder);
+
+  // --------- MISC
   app.get('/', (request, response) => {
     response.send('Rocket Tea API');
   });
