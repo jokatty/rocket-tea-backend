@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import randomNumGenerator from '../utils/randomNumGenerator.mjs';
 
 const op = Sequelize.Op;
 
@@ -124,6 +125,7 @@ export default function initOrdersController(db) {
         pickUpTime,
         orderStatus,
         totalAmount,
+        receiptNum: randomNumGenerator(),
       },
       { returning: true });
 
