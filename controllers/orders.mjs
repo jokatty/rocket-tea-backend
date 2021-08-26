@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import randomNumGenerator from '../utils/randomNumGenerator.mjs';
+import io from '../index.mjs';
 
 const op = Sequelize.Op;
 
@@ -145,6 +146,12 @@ export default function initOrdersController(db) {
       // send back order id data
       response.send(newOrderInOrdersTable);
       console.log('close connection');
+
+      // ================================================= SOCKET MVP
+      // For MVP Socket updates all stores
+      // Goal is to have socket only update the relavant store
+      io.emit('INCOMING-ORDER', 'INCOMING-ORDER');
+      // ================================================= SOCKET MVP
     }
     catch (error) {
       console.log('ERROR ==================== !');

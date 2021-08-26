@@ -37,8 +37,10 @@ export default function routes(app) {
   // login
   app.post('/api/store/login', StoresController.storeLogin);
 
-  // get orders
-  app.get('/api/store/orders/:id', StoresController.getOrders);
+  // get incoming orders
+  app.get('/api/store/incomingorders/:id', StoresController.getIncomingOrders);
+  // get accepted orders
+  app.get('/api/store/acceptedorders/:id', StoresController.getAcceptedOrders);
 
   // accept order
   app.put('/api/store/acceptorder/:id', StoresController.acceptOrder);
