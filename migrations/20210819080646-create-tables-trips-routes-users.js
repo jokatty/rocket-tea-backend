@@ -187,10 +187,8 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await Promise.all([
-      queryInterface.dropTable('order_items'),
-      queryInterface.dropTable('orders'),
-    ]);
+    await queryInterface.dropTable('order_items');
+    await queryInterface.dropTable('orders');
     await Promise.all([
       queryInterface.dropTable('items'),
       queryInterface.dropTable('users'),
