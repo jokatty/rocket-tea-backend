@@ -1,4 +1,5 @@
 import Sequelize from 'sequelize';
+import io from '../index.mjs';
 
 const op = Sequelize.Op;
 
@@ -80,6 +81,94 @@ export default function initStoresController(db) {
     }
   };
 
+  const getIncomingOrders = async (request, response) => {
+    const { id } = request.params;
+    try {
+      // get all of store's order from order table
+      const storeOrders = await db.Order.findAll({
+        where: {
+          storeId: id,
+          orderStatus: 'sent',
+        },
+        raw: true,
+      });
+
+      // get item orders
+      const itemsPerOrderArray = [];
+      await Promise.all(
+        storeOrders.map((order) => {
+          const itemsPerOrder = db.OrderItem.findAll({
+            where: {
+              orderId: order.id,
+            },
+            raw: true,
+          });
+          itemsPerOrderArray.push(itemsPerOrder);
+        }),
+      );
+
+      const listOfItemsPerOrder = await Promise.all(itemsPerOrderArray).then((result) => result);
+
+      // massage data
+      const dataToSendBack = [];
+      for (let i = 0; i < storeOrders.length; i += 1) {
+        const dataObj = {
+          orderTableData: storeOrders[i],
+          orderItemsTableData: listOfItemsPerOrder[i],
+        };
+        dataToSendBack.push(dataObj);
+      }
+      // send back
+      response.send(dataToSendBack);
+    } catch (error) {
+      console.log('ERROR IN getOrders', error);
+    }
+  };
+
+  const getAcceptedOrders = async (request, response) => {
+    const { id } = request.params;
+    try {
+      // get all of store's order from order table
+      const storeOrders = await db.Order.findAll({
+        where: {
+          storeId: id,
+          orderStatus: 'accepted',
+        },
+        raw: true,
+      });
+
+      // get item orders
+      const itemsPerOrderArray = [];
+      await Promise.all(
+        storeOrders.map((order) => {
+          const itemsPerOrder = db.OrderItem.findAll({
+            where: {
+              orderId: order.id,
+            },
+            raw: true,
+          });
+          itemsPerOrderArray.push(itemsPerOrder);
+        }),
+      );
+
+      const listOfItemsPerOrder = await Promise.all(itemsPerOrderArray).then((result) => result);
+
+      // massage data
+      const dataToSendBack = [];
+      for (let i = 0; i < storeOrders.length; i += 1) {
+        const dataObj = {
+          orderTableData: storeOrders[i],
+          orderItemsTableData: listOfItemsPerOrder[i],
+        };
+        dataToSendBack.push(dataObj);
+      }
+      // send back
+      response.send(dataToSendBack);
+    } catch (error) {
+      console.log('ERROR IN getOrders', error);
+    }
+  };
+
   const acceptOrder = async (request, response) => {
     const { id: orderId } = request.params;
     try {
@@ -96,6 +185,12 @@ export default function initStoresController(db) {
 
       // send back
       response.send(updatedOrder);
+
+      // ================================================= SOCKET MVP
+      // For MVP Socket updates all connected user's app
+      // Goal is to have socket only update the relavant user's app
+      io.emit('ORDER-ACCEPTED', 'ORDER-ACCEPTED');
+      // ================================================= SOCKET MVP
     } catch (error) {
       console.log('ERROR IN acceptOrder', error);
     }
@@ -117,6 +212,12 @@ export default function initStoresController(db) {
 
       // send back
       response.send(updatedOrder);
+
+      // ================================================= SOCKET MVP
+      // For MVP Socket updates all connected user's app
+      // Goal is to have socket only update the relavant user's app
+      io.emit('ORDER-COMPLETE', 'ORDER-COMPLETE');
+      // ================================================= SOCKET MVP
     } catch (error) {
       console.log('ERROR IN completeOrder', error);
     }
@@ -126,6 +227,8 @@ export default function initStoresController(db) {
     index,
     storeLogin,
     getOrders,
+    getIncomingOrders,
+    getAcceptedOrders,
     acceptOrder,
     completeOrder,
   };
