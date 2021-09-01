@@ -6,7 +6,8 @@ import { createServer } from 'http';
 import { Server } from 'socket.io';
 import bindRoutes from './routes.mjs';
 
-const FRONTEND_URL = process.env.FRONTEND_URL || ['http://localhost:3000', 'http://localhost:3001'];
+// const FRONTEND_URL = process.env.FRONTEND_URL || ['http://localhost:3000', 'http://localhost:3001'];
+const FRONTEND_URL = [process.env.FRONTEND_URL_USER, process.env.FRONTEND_URL_STORE] || ['http://localhost:3000', 'http://localhost:3001'];
 
 // Initialise Express instance
 const app = express();
